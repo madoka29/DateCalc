@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>業務用日付を計算する</title>
+</head>
+<body>
+	<ul>
+		<li>表示されてる？</li>
+		<li th:text="${dateCalcData.dateId}"></li>
+		<li th:text="${dateCalcData.dateName}"></li>
+		<li th:text="${dateCalcData.plusLessYear}"></li>
+		<li th:text="${dateCalcData.plusLessMonth}"></li>
+		<li th:text="${dateCalcData.plusLessDay}"></li>
+	</ul>
+</body>
+</html>
