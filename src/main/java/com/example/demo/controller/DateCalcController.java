@@ -22,6 +22,9 @@ public class DateCalcController {
     @Autowired
     DateCalcService dateCalcService;
 
+    /**
+     * TOPページ
+     */
     @RequestMapping("/")
     public String index(Model model) {
         List<DateCalcData> dcd = dateCalcService.dateCalcSelectAll();
@@ -31,25 +34,24 @@ public class DateCalcController {
     }
 
     /**
-     * 登録ページ
-     * @param model
-     * @return
+     * 新規登録登録ページ
      */
     @RequestMapping("new")
-    public void newDate(Model model) {
-        model.addAttribute("DateForm", new DateForm());
+    public String newDate(Model model) {
+        model.addAttribute("NewForm", new DateForm());
+        return "newForm";
     }
 
     /**
      * フォームの値を登録メソッドに渡す
      */
     @RequestMapping("create")
-    public String insert(DateForm dateForm, Model model) {
+    public String insert(DateForm newForm, Model model) {
         DateCalcData dcd = new DateCalcData();
-        dcd.setDateName(dateForm.getDateName());
-        dcd.setPlusLessYear(dateForm.getPlusLessYear());
-        dcd.setPlusLessMonth(dateForm.getPlusLessMonth());
-        dcd.setPlusLessDay(dateForm.getPlusLessDay());
+        dcd.setDateName(newForm.getDateName());
+        dcd.setPlusLessYear(newForm.getPlusLessYear());
+        dcd.setPlusLessMonth(newForm.getPlusLessMonth());
+        dcd.setPlusLessDay(newForm.getPlusLessDay());
 
         dateCalcService.dateCalcInsert(dcd);
         return "redirect:/";
@@ -57,8 +59,6 @@ public class DateCalcController {
 
     /**
      * 更新ページ
-     * 初期値としてフォームにデータベースへ登録してある値をいれたい
-     * @param model
      */
     @RequestMapping(path="update/{dateId}", method = RequestMethod.GET)
     public String updateDate(@PathVariable("dateId")int dateId, Model model, @ModelAttribute DateForm updateForm) {
