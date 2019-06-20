@@ -9,7 +9,6 @@
         <a th:href="@{/new}">新規登録</a>
     </div>
     <ul th:each="dateCalcData : ${dateCalcDataList}">
-        <li>表示されてる？</li>
         <li th:text="${dateCalcData.dateId}"></li>
         <li th:text="${dateCalcData.dateName}"></li>
         <li th:text="${dateCalcData.plusLessYear}"></li>

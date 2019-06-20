@@ -40,7 +40,7 @@ public class DateCalcController {
      */
     @RequestMapping("new")
     public String newDate(Model model) {
-        model.addAttribute("DateForm", new DateForm());
+        model.addAttribute("NewForm", new DateForm());
         return "newForm";
     }
 
