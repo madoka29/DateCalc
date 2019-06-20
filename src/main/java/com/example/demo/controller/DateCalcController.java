@@ -34,11 +34,13 @@ public class DateCalcController {
     }
 
     /**
-     * 新規登録登録ページ
+     * 登録ページ
+     * @param model
+     * @return
      */
     @RequestMapping("new")
     public String newDate(Model model) {
-        model.addAttribute("NewForm", new DateForm());
+        model.addAttribute("DateForm", new DateForm());
         return "newForm";
     }
 
