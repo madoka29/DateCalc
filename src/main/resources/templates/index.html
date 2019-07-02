@@ -2,20 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
 <title>業務用日付を計算する</title>
 </head>
 <body>
-    <div>
-        <a th:href="@{/new}">新規登録</a>
+    <div class="container">
+        <form th:action="@{/calculate}" th:object="${StandardDate}" method="POST">
+            <input type="text" th:field="*{standardDate}">
+            <button class="btn btn-primary" type="submit">計算</button>
+            <a class="btn btn-primary" th:href="@{/new}">新規登録</a>
+        </form>
     </div>
-    <ul th:each="dateCalcData : ${dateCalcDataList}">
-        <li th:text="${dateCalcData.dateId}"></li>
-        <li th:text="${dateCalcData.dateName}"></li>
-        <li th:text="${dateCalcData.plusLessYear}"></li>
-        <li th:text="${dateCalcData.plusLessMonth}"></li>
-        <li th:text="${dateCalcData.plusLessDay}"></li>
-        <li><a th:href="@{'/update/' + ${dateCalcData.dateId}}">更新</a></li>
-        <li><a th:href="@{'/delete/' + ${dateCalcData.dateId}}">削除</a></li>
-    </ul>
+    <div class="container">
+        <table class="table table-striped">
+            <tr>
+                <th>計算名</th>
+                <th>計算結果</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr th:each="result : ${resultList}">
+                <td th:text="${result.get('dateCalcData').dateName}"></td>
+                <td th:text="${result.get('resultCalc')}"></td>
+                <td><a class="btn btn-primary" th:href="@{'/update/' + ${result.get('dateCalcData').dateId}}">更新</a></td>
+                <td><a class="btn btn-primary" th:href="@{'/delete/' + ${result.get('dateCalcData').dateId}}">削除</a></td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

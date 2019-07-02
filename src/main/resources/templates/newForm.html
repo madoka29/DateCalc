@@ -2,29 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link th:href="@{/webjars/bootstrap/4.3.1/css/bootstrap.min.css}" rel="stylesheet" />
+<script th:src="@{/webjars/jquery/3.4.1/jquery.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/4.3.1/js/bootstrap.min.js}"></script>
+<title>新規登録</title>
 </head>
 <body>
-    <form th:action="@{/create}" th:object="${NewForm}" method="POST">
-        <table>
-            <tr>
-                <td>日付名前</td>
-                <td><input type="text" name="dateName" th:field="*{dateName}"></td>
-            </tr>
-            <tr>
-                <td>年</td>
-                <td><input type="text" name="plusLessYear" th:field="*{plusLessYear}"></td>
-            </tr>
-            <tr>
-                <td>月</td>
-                <td><input type="text" name="plusLessMonth" th:field="*{plusLessMonth}"></td>
-            </tr>
-            <tr>
-                <td>日</td>
-                <td><input type="text" name="plusLessDay" th:field="*{plusLessDay}"></td>
-            </tr>
-        </table>
-        <button type="submit">送信</button>
-    </form>
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-md-6">
+		         <form th:action="@{/create}" th:object="${NewForm}" method="POST">
+		            <div class="form-group">
+		                <label for="dateName">計算名</label>
+		                <input type="text" class="form-control" id="dateName" name="dateName" th:field="*{dateName}">
+		            </div>
+		            <div class="form-group">
+		                <label for="plusLessYear">年</label>
+		                <input type="text" class="form-control" id="plusLessYear" name="plusLessYear" th:field="*{plusLessYear}">
+		            </div>
+		            <div class="form-group">
+		                <label for="plusLessMonth">月</label>
+		                <input type="text" class="form-control" id="plusLessMonth" name="plusLessMonth" th:field="*{plusLessMonth}">
+		            </div>
+		            <div class="form-group">
+		                <label for="plusLessDay">日</label>
+		                <input type="text" class="form-control" id="plusLessDay" name="plusLessDay" th:field="*{plusLessDay}">
+		            </div>
+		            <button class="btn btn-danger" type="submit">新規登録</button>
+		        </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
