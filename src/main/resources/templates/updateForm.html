@@ -11,7 +11,7 @@
     <div class="container">
         <div class="row pt-5">
             <div class="col-md-6">
-		        <form th:action="@{/update}" th:object="${UpdateForm}" method="POST">
+		        <form th:action="@{/update}" th:object="${updateForm}" method="POST">
 		            <div class="form-group">
 		                <label for="dateName">計算名</label>
 		                <input type="text" class="form-control" id="dateName" name="dateName" th:field="*{dateName}">

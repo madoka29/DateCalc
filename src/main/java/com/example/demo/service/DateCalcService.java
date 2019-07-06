@@ -6,15 +6,14 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.domain.DateCalcData;
 import com.example.demo.domain.DateCalcMapper;
+import com.example.demo.domain.Result;
 
 // 計算処理を行うService
 
@@ -43,34 +42,37 @@ public class DateCalcService implements DateCalcMapper {
     /**
      * データベースから日付計算式を取得して、日付基準日をもとに計算して結果を返す
      */
-    public List<Map<String, Object>> calcDateFromStandardDate(String standardDate) throws Exception {
+    public List<Result> calcFormBaseDate(String standardDate) throws Exception {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
         Date time = sdf.parse(standardDate);
         LocalDateTime standardCalcDate = LocalDateTime.ofInstant(time.toInstant(), ZoneId.systemDefault());
 
-        List<Map<String, Object>> resultList = new ArrayList<>();
+        List<Result> results = new ArrayList<Result>();
         List<DateCalcData> calcDataList = dateCalcMapper.dateCalcSelectAll();
 
         for(DateCalcData calcData : calcDataList) {
-            Map<String, Object> resultMap = new HashMap<String, Object>();
+            Result result = new Result();
+
+            // 日付基準日をもとに日付計算
             LocalDateTime resultDate =
                     standardCalcDate.plusYears(calcData.getPlusLessYear())
                     .plusMonths(calcData.getPlusLessMonth())
                     .plusDays((calcData.getPlusLessDay()));
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-            resultMap.put("resultCalc", resultDate.format(dateTimeFormatter));
-            resultMap.put("dateCalcData", calcData);
-            resultList.add(resultMap);
+
+            result.setCalcData(calcData);
+            result.setCalcResult(resultDate.format(dateTimeFormatter));
+            results.add(result);
         }
 
-        return resultList;
+        return results;
     }
 
     /**
      * データベースに登録する
      */
     @Override
-    public boolean dateCalcInsert(DateCalcData dcd) {
+    public int dateCalcInsert(DateCalcData dcd) {
         return dateCalcMapper.dateCalcInsert(dcd);
     }
 
@@ -78,7 +80,7 @@ public class DateCalcService implements DateCalcMapper {
      * データベースを更新する
      */
     @Override
-    public boolean dateCalcUpdate(DateCalcData dcd) {
+    public int dateCalcUpdate(DateCalcData dcd) {
         return dateCalcMapper.dateCalcUpdate(dcd);
     }
 

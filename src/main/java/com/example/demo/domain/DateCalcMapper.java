@@ -29,13 +29,13 @@ public interface DateCalcMapper {
      * 日付計算用データを登録する
      */
     @Insert("INSERT INTO date_calc(dateId, dateName, plusLessYear, plusLessMonth, plusLessDay) VALUES (null, #{dateName}, #{plusLessYear}, #{plusLessMonth}, #{plusLessDay});")
-    public boolean dateCalcInsert(DateCalcData dcd);
+    public int dateCalcInsert(DateCalcData dcd);
 
     /**
      * 日付計算用データを更新する
      */
     @Update("UPDATE date_calc SET dateName = #{dateName}, plusLessYear = #{plusLessYear}, plusLessMonth = #{plusLessMonth}, plusLessDay = #{plusLessDay} WHERE dateId = #{dateId}")
-    public boolean dateCalcUpdate(DateCalcData dcd);
+    public int dateCalcUpdate(DateCalcData dcd);
 
     /**
      * 日付計算用データを削除する
